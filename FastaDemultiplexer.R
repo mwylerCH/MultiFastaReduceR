@@ -1,6 +1,11 @@
 #!/usr/bin/env Rscript 
 # script to select longest variant if locus is annotated multiple time
-# PROVISIONAL SCRIPT (no testing, no I/O check, only AA sequence)
+# PROVISIONAL SCRIPT (no testing, limited I/O check)
+
+# Wyler Michele
+# March 21th 2020, Zurigo, Switzerland
+
+
 args <- commandArgs(TRUE)
 MOLECULE <- args[1]
 FASTA <- args[2]
@@ -11,6 +16,8 @@ if(length(args) != 2){
 }
 suppressMessages(suppressWarnings(require(tidyverse)))
 suppressMessages(suppressWarnings(require(Biostrings)))
+suppressMessages(suppressWarnings(require(seqinr)))
+
 
 # use MOLUCUEL info
 if (MOLECULE == 'DNA'){
