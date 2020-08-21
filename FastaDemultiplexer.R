@@ -1,24 +1,37 @@
 #!/usr/bin/env Rscript 
 # script to select longest variant if locus is annotated multiple time
 # PROVISIONAL SCRIPT (no testing, no I/O check, only AA sequence)
-library(biomaRt)
-library(seqinr)
-library(tidyverse)
-
 args <- commandArgs(TRUE)
-FASTA <- args[1]
+MOLECULE <- args[1]
+FASTA <- args[2]
+
+# test supplied arguments
+if(length(args) != 2){
+  stop('Usage: FastaDemultiplexer MOLECULE FASTA', call. = F)
+}
+suppressMessages(suppressWarnings(require(tidyverse)))
+suppressMessages(suppressWarnings(require(Biostrings)))
+
+# use MOLUCUEL info
+if (MOLECULE == 'DNA'){
+  print("Sequences are nucleotides")
+  originalFasta <- readDNAStringSet(FASTA)
+} else if (MOLECULE == 'AA'){
+  print("Sequences are proteins")
+  originalFasta <- readAAStringSet(FASTA)
+} else {
+  stop("Molecule needs to be 'DNA' or 'AA'", call. = F)
+}
 
 # file Names
 FASTANAME <- gsub("^.*/", "", FASTA)
 OUTFASTA <- gsub("fa$",'OneGeneModel.fa', FASTANAME)
 OUTFASTA <- gsub("fasta$",'OneGeneModel.fa', OUTFASTA)
 
-
-originalFasta <- read.fasta(FASTA, seqtype = 'AA')
-
 # extract name and length
+print("Length calculation...")
 lunghezza <- as.data.frame(names(originalFasta))
-lunghezza$len <- as.data.frame(getLength(originalFasta))
+lunghezza$len <- as.data.frame(sapply(originalFasta, length))
 
 # remove version
 lunghezza$locus <- gsub("\\.[[:digit:]]+",'', lunghezza$`names(originalFasta)`)
@@ -28,11 +41,13 @@ cico <- lunghezza %>%
   filter(len == mostLen) %>% 
   slice_head(n=1)
 
-  
+
 
 # subset original fasta for longest
+print("Subsetting...")
 subsettedFasta <- originalFasta[names(originalFasta) %in% cico$`names(originalFasta)`]
 
 # write out
 write.fasta(subsettedFasta, names = names(subsettedFasta), file.out = OUTFASTA, 
             open = "w", nbchar = 60, as.string = FALSE)
+print(paste0('Subsetting done, check file ', OUTFASTA))
