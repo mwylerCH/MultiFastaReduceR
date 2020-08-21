@@ -15,5 +15,5 @@ git clone https://github.com/mwylerCH/MultiFastaDemultiplexer
 
 Subset fasta
 ```
-MultiFastaDemultiplexer/FastaDemultiplexer.R FastaOfInterest.fa
+MultiFastaReduceR OverAnnotatedFASTA.fa
 ```
