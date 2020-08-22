@@ -11,9 +11,10 @@ Protein Sequence from annotation often contain multiple gene version for the sam
 Download
 ```
 git clone https://github.com/mwylerCH/MultiFastaDemultiplexer
+chmod +x MultiFastaDemultiplexer/MultiFastaReduceR
 ```
 
 Subset fasta
 ```
-MultiFastaReduceR OverAnnotatedFASTA.fa
+MultiFastaReduceR DNA OverAnnotatedFASTA.fa
 ```
