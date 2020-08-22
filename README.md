@@ -35,4 +35,4 @@ MultiFastaReduceR [MOLECULE] [OverAnnotatedFASTA.fa]
 Technical
 ---------------
 Developed with R version 3.5.1 and Biostrings version 2.50.2, seqinr 3.6-1 and tidyverse 1.3.0 on a Ubuntu 16.06 LTS machine.      
-22th August 2020, Zürich, Switzerland.
+22th August 2020, Giubiasco, Switzerland.
