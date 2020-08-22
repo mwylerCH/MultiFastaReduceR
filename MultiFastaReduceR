@@ -7,7 +7,7 @@ FASTA <- args[2]
 
 # test supplied arguments
 if(length(args) != 2){
-  stop('Usage: FastaDemultiplexer MOLECULE FASTA', call. = F)
+  stop("Usage: FastaDemultiplexer [MOLECULE] [FASTA]\n\tMOLECULE: 'AA' or 'DNA'\n\tFASTA: path to the MultiFasta file, gziped or not", call. = F)
 }
 suppressMessages(suppressWarnings(require(tidyverse)))
 suppressMessages(suppressWarnings(require(Biostrings)))
@@ -32,11 +32,11 @@ OUTFASTA <- gsub("fasta$",'OneGeneModel.fa', OUTFASTA)
 # extract name and length
 print("Length calculation...")
 lunghezza <- as.data.frame(names(originalFasta))
-lunghezza$len <- as.data.frame(sapply(originalFasta, length))
+lunghezza$len <- nchar(originalFasta)
 
 # remove version
 lunghezza$locus <- gsub("\\.[[:digit:]]+",'', lunghezza$`names(originalFasta)`)
-cico <- lunghezza %>% 
+UniqID <- lunghezza %>% 
   group_by(locus) %>% 
   mutate(mostLen = max(len)) %>% 
   filter(len == mostLen) %>% 
@@ -46,7 +46,7 @@ cico <- lunghezza %>%
 
 # subset original fasta for longest
 print("Subsetting...")
-subsettedFasta <- originalFasta[names(originalFasta) %in% cico$`names(originalFasta)`]
+subsettedFasta <- originalFasta[names(originalFasta) %in% UniqID$`names(originalFasta)`]
 
 # write out
 write.fasta(subsettedFasta, names = names(subsettedFasta), file.out = OUTFASTA, 
