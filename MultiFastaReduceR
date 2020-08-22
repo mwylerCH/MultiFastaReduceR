@@ -7,7 +7,7 @@ FASTA <- args[2]
 
 # test supplied arguments
 if(length(args) != 2){
-  stop("Usage: FastaDemultiplexer [MOLECULE] [FASTA]\n\tMOLECULE: 'AA' or 'DNA'\n\tFASTA: path to the MultiFasta file, gziped or not", call. = F)
+  stop("Usage: FastaDemultiplexer [MOLECULE] [FASTA]\n\tMOLECULE: 'AA' or 'DNA'\n\tFASTA: path to the MultiFasta file, gzipped or not", call. = F)
 }
 suppressMessages(suppressWarnings(require(tidyverse)))
 suppressMessages(suppressWarnings(require(Biostrings)))
