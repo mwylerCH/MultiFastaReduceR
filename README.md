@@ -1,6 +1,6 @@
 # MultiFastaDemultiplexer
 
-Protein Sequence from annotation often contain multiple gene version for the same locus. For various application only one single gene model is needed. MultiFastaDemultiplexer subsets a input fasta and keeps only the longest annotated sequence.
+CDS or protein fasta files from annotation often contain multiple gene version for the same locus. For various application only one single gene model is needed. MultiFastaDemultiplexer subsets a input fasta and keeps only the longest annotated sequence.
 
 Usage
 ---------------
