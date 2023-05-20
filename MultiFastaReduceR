@@ -49,6 +49,8 @@ print("Subsetting...")
 subsettedFasta <- originalFasta[names(originalFasta) %in% UniqID$`names(originalFasta)`]
 
 # write out
-write.fasta(subsettedFasta, names = names(subsettedFasta), file.out = OUTFASTA, 
-            open = "w", nbchar = 60, as.string = FALSE)
+#write.fasta(subsettedFasta, names = names(subsettedFasta), file.out = OUTFASTA, 
+#            open = "w", nbchar = 60, as.string = FALSE)
+writeXStringSet(subsettedFasta, OUTFASTA, append=FALSE,
+                compress=FALSE, compression_level=NA, format="fasta")
 print(paste0('Subsetting done, check file ', OUTFASTA))
